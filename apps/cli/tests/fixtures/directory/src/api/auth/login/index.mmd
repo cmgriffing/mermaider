@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> CheckUser
+    CheckUser --> CreateUser : User Not Found
+    CheckUser --> CheckMagicLink : User Found
+    CreateUser --> CheckMagicLink
+    CheckMagicLink --> RemoveOldLink : Link Expired
+    CheckMagicLink --> CheckRateLimit : No Link/Link Valid
+    RemoveOldLink --> CheckRateLimit
+    CheckRateLimit --> CreateRateLimit : No Rate Limit
+    CheckRateLimit --> UpdateRateLimit : Under Limit
+    CheckRateLimit --> [*] : Rate Limited
+    CreateRateLimit --> GenerateMagicLink
+    UpdateRateLimit --> GenerateMagicLink
+    GenerateMagicLink --> SendEmail
+    SendEmail --> [*]

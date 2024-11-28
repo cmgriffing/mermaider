@@ -1,0 +1,23 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> CheckProvider
+    CheckProvider --> InvalidProvider : Provider not found
+    InvalidProvider --> [*]
+    CheckProvider --> ValidateCode : Provider found
+    ValidateCode --> GetUserEmail
+    GetUserEmail --> CheckUser
+    CheckUser --> CreateUser : User not found
+    CreateUser --> CheckMagicLink
+    CheckUser --> CheckMagicLink : User exists
+    CheckMagicLink --> CheckMagicLinkAge : Link exists
+    CheckMagicLinkAge --> RemoveOldLink : Link expired
+    CheckMagicLinkAge --> [*] : Link valid
+    RemoveOldLink --> CreateNewMagicLink
+    CheckMagicLink --> CheckRateLimit : No link exists
+    CheckRateLimit --> CreateRateLimit : No rate limit
+    CheckRateLimit --> UpdateRateLimit : Under limit
+    CheckRateLimit --> [*] : Rate limit exceeded
+    CreateRateLimit --> CreateNewMagicLink
+    UpdateRateLimit --> CreateNewMagicLink
+    CreateNewMagicLink --> ReturnMagicLink
+    ReturnMagicLink --> [*]

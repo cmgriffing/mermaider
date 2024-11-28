@@ -1,0 +1,30 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> ValidateMagicLink
+    ValidateMagicLink --> FetchUser
+    FetchUser --> CheckExistingMagicLink
+    
+    CheckExistingMagicLink --> FailureCheck
+    
+    FailureCheck --> Failure : user not found
+    FailureCheck --> Failure : magic link invalid
+    FailureCheck --> Failure : no existing magic link
+    FailureCheck --> GenerateNewMagicLink : all checks pass
+    
+    Failure --> Return400
+    Return400 --> [*]
+    
+    GenerateNewMagicLink --> DetermineNextStep
+    
+    DetermineNextStep --> SetupStep : no MFA keys
+    DetermineNextStep --> ValidateStep : has MFA keys
+    
+    SetupStep --> Return200
+    ValidateStep --> Return200
+    
+    Return200 --> [*]
+    
+    state Return200 {
+        [*] --> ReturnNewMagicLinkCode
+        ReturnNewMagicLinkCode --> ReturnNextStep
+    }

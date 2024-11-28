@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json",
-    "test": "tsx src/index.ts parse ./tests/fixtures/raw-file.ts"
+    "test": "tsx src/index.ts parse ./tests/fixtures/raw-file.ts",
+    "test:directory": "tsx src/index.ts parse ./tests/fixtures/directory"
   },
   "keywords": [],
   "author": "",

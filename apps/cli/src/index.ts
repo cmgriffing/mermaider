@@ -19,24 +19,29 @@ program
   )
   .argument("<paths...>", "paths to parse")
   .action(async (paths, options) => {
-    const diagrams = await generateMermaidFromPath(paths);
+    try {
+      const diagrams = await generateMermaidFromPath(paths);
 
-    await Promise.all(
-      diagrams.map(async (diagram) => {
-        console.log(diagram.filePath);
-        console.log(diagram.diagram);
+      await Promise.all(
+        diagrams.map(async (diagram) => {
+          console.log(diagram.filePath);
+          console.log(diagram.diagram);
 
-        const pathParts = path.parse(diagram.filePath);
+          const pathParts = path.parse(diagram.filePath);
 
-        const outputPath = path.join(pathParts.dir, `${pathParts.name}.mmd`);
-        await fs.promises.writeFile(outputPath, diagram.diagram);
-        await mermaidRun(outputPath, `${outputPath.replace(".mmd", "")}.svg`);
+          const outputPath = path.join(pathParts.dir, `${pathParts.name}.mmd`);
+          await fs.promises.writeFile(outputPath, diagram.diagram);
+          await mermaidRun(outputPath, `${outputPath.replace(".mmd", "")}.svg`);
 
-        //   mermaidRun([diagram.filePath], {
-        //     output: diagram.filePath.replace(".ts", ".mmd"),
-        //   });
-      }),
-    );
+          //   mermaidRun([diagram.filePath], {
+          //     output: diagram.filePath.replace(".ts", ".mmd"),
+          //   });
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
   });
 
 program.parse();

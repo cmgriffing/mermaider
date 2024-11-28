@@ -1,0 +1,20 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> ValidateMagicLink
+    ValidateMagicLink --> FetchUser
+    FetchUser --> ValidateTOTP
+    ValidateTOTP --> CheckExistingRecoveryCode
+    CheckExistingRecoveryCode --> GenerateRecoveryCode: No existing code
+    CheckExistingRecoveryCode --> Error400: Has existing code
+    ValidateTOTP --> Error400: Invalid TOTP
+    ValidateMagicLink --> Error400: Invalid Magic Link
+    GenerateRecoveryCode --> UpdateDatabase
+    UpdateDatabase --> Success200
+    Success200 --> [*]
+    Error400 --> [*]
+    state UpdateDatabase {
+        [*] --> UpdateUser
+        UpdateUser --> RemoveMagicLink
+        RemoveMagicLink --> RemoveRateLimit
+        RemoveRateLimit --> [*]
+    }

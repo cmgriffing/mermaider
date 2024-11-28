@@ -1,0 +1,15 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> ValidateMagicLink
+    ValidateMagicLink --> GetUser
+    GetUser --> ValidateMFACode
+    ValidateMFACode --> Failed : Invalid Code
+    ValidateMFACode --> Success : Valid Code
+    Failed --> [*] : Return 400
+    Success --> CleanupMagicLink : Remove Magic Link & Rate Limit
+    CleanupMagicLink --> GenerateTokens : Generate Access & Refresh Tokens
+    GenerateTokens --> [*] : Return 200 with Tokens
+    state Error {
+        [*] --> ReturnError
+        ReturnError --> [*] : Return 500
+    }
