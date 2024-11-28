@@ -35,37 +35,39 @@ export async function generateMermaidFromPath(
           fileExists = false;
         }
 
-        if (fileExists) {
-          const parsedMermaiderFilePath = path.parse(mermaiderFilePath);
-
-          const mermaiderFileContents = await fs.promises.readFile(
-            mermaiderFilePath,
-            "utf8",
-          );
-          const mermaiderFileEntries = mermaiderFileContents.split("\n");
-
-          const globbedMermaiderFileEntries = await Promise.all(
-            mermaiderFileEntries.map((entry) =>
-              glob(path.resolve(parsedMermaiderFilePath.dir, entry)),
-            ),
-          );
-
-          const flattenedGlobbedMermaiderFileEntries = await Promise.all(
-            globbedMermaiderFileEntries.flat().map(async (entry) => {
-              const stats = await fs.promises.lstat(entry);
-              if (stats.isFile()) {
-                return entry;
-              }
-            }),
-          );
-
-          const filteredFlattenedGlobbedMermaiderFileEntries =
-            flattenedGlobbedMermaiderFileEntries.filter(
-              (entry) => entry !== undefined,
-            );
-
-          filesToAnalyze.push(...filteredFlattenedGlobbedMermaiderFileEntries);
+        if (!fileExists) {
+          throw new Error(`No .mermaider file found in directory: ${filePath}`);
         }
+
+        const parsedMermaiderFilePath = path.parse(mermaiderFilePath);
+
+        const mermaiderFileContents = await fs.promises.readFile(
+          mermaiderFilePath,
+          "utf8",
+        );
+        const mermaiderFileEntries = mermaiderFileContents.split("\n");
+
+        const globbedMermaiderFileEntries = await Promise.all(
+          mermaiderFileEntries.map((entry) =>
+            glob(path.resolve(parsedMermaiderFilePath.dir, entry)),
+          ),
+        );
+
+        const flattenedGlobbedMermaiderFileEntries = await Promise.all(
+          globbedMermaiderFileEntries.flat().map(async (entry) => {
+            const stats = await fs.promises.lstat(entry);
+            if (stats.isFile()) {
+              return entry;
+            }
+          }),
+        );
+
+        const filteredFlattenedGlobbedMermaiderFileEntries =
+          flattenedGlobbedMermaiderFileEntries.filter(
+            (entry) => entry !== undefined,
+          );
+
+        filesToAnalyze.push(...filteredFlattenedGlobbedMermaiderFileEntries);
       }
     }),
   );
