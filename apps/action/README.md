@@ -1,24 +1,24 @@
-# action
+# Mermaider GitHub Action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+Mermaider GitHub Action is an action used to generate mermaid diagrams from code.
+
+## Usage
+
+```yaml
+- uses: mermaider/mermaider@v1
+  with:
+    # The path to the file to parse
+    file: path/to/file.ts
+    # The path to the output file
+    output: path/to/output.svg
+```
 
 ## Inputs
 
-### `who-to-greet`
+## Contributing
 
-**Required** The name of the person to greet. Default `"World"`.
+Please see the [contributing guide](../../CONTRIBUTING.md) for more information.
 
-## Outputs
+## License
 
-### `time`
-
-The time we greeted you.
-
-## Example usage
-
-````- name: Hello world
-      uses: cmgriffing
-/action@v1
-      with:
-        who-to-greet: 'Mona the Octocat'```
-````
+[MIT](../../LICENSE)
