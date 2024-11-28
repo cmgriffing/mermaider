@@ -9,12 +9,14 @@ Mermaider can be used in two specific ways.
 ### As a CLI
 
 To see the documentation for the CLI tool please go to that directory:
-[](./apps/cli)
+
+[./apps/cli](./apps/cli)
 
 ### As a GitHub Action
 
 To see the documentation for the GitHub Action please go to that directory:
-[](./apps/action)
+
+[./apps/action](./apps/action)
 
 ## Contributing
 
