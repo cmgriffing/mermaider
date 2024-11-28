@@ -1,0 +1,34 @@
+{
+  "name": "@mermaider/core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js", 
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "tsx tests/tests.ts",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json",
+    "watch": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.0.2",
+    "@types/glob": "^8.1.0",
+    "ai": "^4.0.6",
+    "dotenv": "^16.4.5",
+    "glob": "^11.0.0",
+    "mermaid": "^11.4.1"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@mermaider/cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json",
+    "test": "tsx src/index.ts parse ./tests/fixtures/raw-file.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.0",
+    "@mermaider/core": "workspace:*",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.5",
+    "tsup": "^8.3.5",
+    "typescript": "5.5.4"
+  }
+}

@@ -1,0 +1,15 @@
+stateDiagram-v2
+    [*] --> ValidateRequest
+    ValidateRequest --> ValidateMagicLink
+    ValidateMagicLink --> CheckMfaRecoveryCode
+    CheckMfaRecoveryCode --> CheckRateLimit: Has Recovery Code
+    CheckMfaRecoveryCode --> Return401: No Recovery Code
+    CheckRateLimit --> ValidateCode: Under Limit
+    CheckRateLimit --> Return401: Over Limit
+    ValidateCode --> UpdateRateLimit: Invalid Code
+    UpdateRateLimit --> Return401
+    ValidateCode --> GenerateNewCodes: Valid Code
+    GenerateNewCodes --> UpdateUser
+    UpdateUser --> ReturnTokens
+    ReturnTokens --> [*]
+    Return401 --> [*]
