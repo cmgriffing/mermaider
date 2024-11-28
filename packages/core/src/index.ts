@@ -24,9 +24,7 @@ export async function generateMermaidFromPath(
         filesToAnalyze.push(filePath);
       } else if (stats.isDirectory()) {
         // check for .mermaider file within same directory
-        const parsedPath = path.parse(filePath);
-
-        const mermaiderFilePath = path.join(parsedPath.dir, `.mermaider`);
+        const mermaiderFilePath = path.join(filePath, `.mermaider`);
 
         let fileExists = false;
         try {

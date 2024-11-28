@@ -13,15 +13,11 @@ async function main() {
   );
   console.log({ mermaidText });
 
-  const mermaidSvg = await renderMermaid(
-    "./tests/fixtures/raw-file.ts",
-    mermaidText,
-  );
-  console.log({ mermaidSvg });
-
   // Directory
-  //   const mermaidTexts = await generateMermaidFromPath("./tests/fixtures/directory");
-  //   console.log({ mermaidTexts });
+  const mermaidTexts = await generateMermaidFromPath(
+    "./tests/fixtures/directory",
+  );
+  console.log({ mermaidTexts });
 }
 
 main();
