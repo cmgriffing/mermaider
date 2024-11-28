@@ -24,9 +24,6 @@ program
 
       await Promise.all(
         diagrams.map(async (diagram) => {
-          console.log(diagram.filePath);
-          console.log(diagram.diagram);
-
           const pathParts = path.parse(diagram.filePath);
 
           const outputPath = path.join(pathParts.dir, `${pathParts.name}.mmd`);
