@@ -1,13 +1,13 @@
 {
   "name": "@mermaider/cli",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "./dist/index.js",
   "bin": {
     "mermaider": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json --config ./tsup.config.ts",
+    "build": "tsup src/index.ts --format esm,cjs --clean  --tsconfig tsconfig.json --config ./tsup.config.ts",
     "prepublish": "pnpm run build",
     "test": "tsx src/index.ts parse ./tests/fixtures/raw-file.ts",
     "test:directory": "tsx src/index.ts parse ./tests/fixtures/directory"
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/commander": "^2.12.5",
+    "@types/node": "^22.9.0",
     "tsup": "^8.3.5",
     "typescript": "5.5.4"
   }

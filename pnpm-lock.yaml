@@ -106,6 +106,9 @@ importers:
       '@types/commander':
         specifier: ^2.12.5
         version: 2.12.5
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.10.1
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(postcss@8.4.31)(tsx@4.19.2)(typescript@5.5.4)(yaml@2.6.1)
