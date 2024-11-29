@@ -1,11 +1,11 @@
 {
   "name": "@mermaider/core",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "The core functions used by the mermaider CLI and GitHub Action",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
-      "require": "./dist/index.js", 
+      "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
@@ -17,7 +17,7 @@
     "watch": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chris Griffing <cmgriffing@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "tsup": "^8.3.5",
