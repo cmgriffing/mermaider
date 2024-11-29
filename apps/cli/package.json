@@ -1,8 +1,11 @@
 {
   "name": "@mermaider/cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "./dist/index.js",
+  "bin": {
+    "mermaider": "./dist/index.js"
+  },
   "type": "module",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean  --tsconfig tsconfig.json --config ./tsup.config.ts",
