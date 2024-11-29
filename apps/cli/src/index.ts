@@ -1,4 +1,4 @@
-#!/bin/node
+#! /usr/bin/env node
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
