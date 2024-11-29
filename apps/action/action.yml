@@ -1,13 +1,11 @@
-name: "action"
-description: "Greet someone and record the time"
+name: 'mermaider'
+description: 'Generate and commit Mermaid diagrams for your backend endpoints'
 inputs:
-  who-to-greet: # id of input
-    description: "Who to greet"
-    required: true
-    default: "World"
-outputs:
-  time: # id of output
-    description: "The time we greeted you"
+  path:
+    description:
+      'Glob pattern of files to create mermaid diagrams for. Can be a glob
+      pattern or a directory containing a .mermaider file. Defaults to `./`.'
+    default: './'
 runs:
-  using: "node12"
-  main: "index.js"
+  using: 'node20'
+  main: './dist/index.js'

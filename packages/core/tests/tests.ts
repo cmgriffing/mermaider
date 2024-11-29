@@ -1,10 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import {
-  generateMermaidFromFile,
-  generateMermaidFromPath,
-  renderMermaid,
-} from "../src";
+import { generateMermaidFromFile, generateMermaidFromPath } from "../src";
 
 async function main() {
   // Single file

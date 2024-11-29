@@ -34,7 +34,9 @@
     "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
     "package:watch": "npm run package -- --watch",
     "test": "npx jest",
-    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package",
+    "------------------------------------------------------------------------------": "",
+    "types": "tsx script/gen-types.ts types ./action.yml src/typed-core.ts"
   },
   "license": "MIT",
   "jest": {
@@ -72,11 +74,13 @@
   "devDependencies": {
     "@github/local-action": "^2.2.0",
     "@jest/globals": "^29.7.0",
+    "@types/commander": "^2.12.5",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.9.0",
     "@typescript-eslint/eslint-plugin": "^8.14.0",
     "@typescript-eslint/parser": "^8.14.0",
     "@vercel/ncc": "^0.38.3",
+    "commander": "^12.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-jsonc": "^2.18.2",
@@ -86,6 +90,8 @@
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.6.3"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "yaml": "^2.6.1"
   }
 }

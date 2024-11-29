@@ -1,5 +1,11 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import childProcess from 'node:child_process'
+import { createRequire } from 'node:module'
+
+import typedCore from './typed-core'
+
+const createdRequire = createRequire(import.meta.url)
+const mermaiderCliPath = createdRequire.resolve('@mermaider/cli/dist/index.js')
 
 /**
  * The main function for the action.
@@ -7,20 +13,34 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const pathToParse = typedCore.getInput('path')
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const mermaiderResult = childProcess.spawnSync(
+      process.argv[0],
+      [mermaiderCliPath, 'parse', pathToParse],
+      {
+        stdio: 'inherit'
+      }
+    )
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    if (mermaiderResult.status !== 0) {
+      throw new Error('Mermaider CLI failed to generate diagrams')
+    }
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    childProcess.spawnSync('git', ['add', '.'], {
+      stdio: 'inherit'
+    })
+    childProcess.spawnSync(
+      'git',
+      ['commit', '-m', 'chore: update mermaid diagrams'],
+      {
+        stdio: 'inherit'
+      }
+    )
   } catch (error) {
     // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    }
   }
 }
