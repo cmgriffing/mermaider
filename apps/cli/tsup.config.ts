@@ -5,5 +5,5 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  noExternal: ["@mermaider/core"],
+  noExternal: ["@mermaider/core", "@mermaid-js/mermaid-cli"],
 });
